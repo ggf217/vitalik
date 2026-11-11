@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Виталик — именинник 🎉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Rubik:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --panel:#f3f3f3;
+    --ink:#1c1c1c;
+    --mid:#8f8f8f;
+    --muted:#6b6b6b;
+    --line:#e2e2e2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Rubik',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+
+  /* ---------- SMOKE ---------- */
+  .smoke{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .smoke::before,.smoke::after{
+    content:'';position:absolute;inset:-25%;
+    filter:blur(46px);
+  }
+  .smoke::before{
+    background:
+      radial-gradient(42% 34% at 18% 20%, rgba(110,110,110,.28), transparent 70%),
+      radial-gradient(38% 30% at 84% 28%, rgba(140,140,140,.24), transparent 70%),
+      radial-gradient(50% 40% at 52% 88%, rgba(95,95,95,.26), transparent 70%);
+    animation:drift1 28s ease-in-out infinite alternate;
+  }
+  .smoke::after{
+    background:
+      radial-gradient(46% 36% at 75% 70%, rgba(120,120,120,.22), transparent 70%),
+      radial-gradient(40% 32% at 25% 60%, rgba(150,150,150,.20), transparent 70%),
+      radial-gradient(44% 34% at 60% 12%, rgba(100,100,100,.18), transparent 70%);
+    animation:drift2 38s ease-in-out infinite alternate;
+  }
+  @keyframes drift1{
+    from{transform:translate3d(-4%,-2%,0) scale(1)}
+    to{transform:translate3d(6%,4%,0) scale(1.18)}
+  }
+  @keyframes drift2{
+    from{transform:translate3d(3%,5%,0) scale(1.12)}
+    to{transform:translate3d(-5%,-3%,0) scale(1)}
+  }
+
+  header,main,footer{position:relative;z-index:1}
+
+  /* ---------- HERO ---------- */
+  header{
+    min-height:100svh;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:48px 0;
+  }
+  .cake{font-size:clamp(3rem,8vw,5.5rem);display:inline-block;animation:bounce 2.4s ease-in-out infinite}
+  @keyframes bounce{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-14px) rotate(4deg)}}
+  h1{
+    font-family:'Unbounded',sans-serif;
+    font-weight:900;
+    font-size:clamp(2.4rem,9vw,6.5rem);
+    line-height:1.05;
+    text-transform:uppercase;
+    letter-spacing:-.02em;
+    margin:24px 0 8px;
+  }
+  h1 .row{display:block}
+  h1{
+    background:linear-gradient(180deg,#F9E08E 0%,#F5C542 38%,#D49A2A 62%,#FBE7A1 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter:drop-shadow(0 2px 6px rgba(180,130,20,.35));
+  }
+  .tagline{
+    font-size:clamp(1rem,2.6vw,1.35rem);
+    color:var(--muted);
+    max-width:34ch;
+    margin-top:16px;
+  }
+  .scroll-hint{
+    position:absolute;bottom:28px;
+    font-size:.95rem;color:var(--muted);
+    animation:hint 1.8s ease-in-out infinite;
+  }
+  @keyframes hint{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(6px);opacity:1}}
+
+  /* ---------- GREETING ---------- */
+  section{padding:80px 0}
+  .greeting{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:clamp(32px,6vw,64px);
+    font-size:clamp(1.15rem,2.6vw,1.5rem);
+    line-height:1.75;
+    box-shadow:0 24px 60px rgba(0,0,0,.08);
+  }
+  .greeting p + p{margin-top:1em}
+  .greeting .loud{
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .greeting .hot{color:#4a4a4a;font-weight:600}
+  .guest-photo{
+    margin:32px auto 8px;
+    max-width:320px;
+    transform:rotate(-2deg);
+    transition:transform .3s ease;
+  }
+  .guest-photo:hover{transform:rotate(0) scale(1.03)}
+  .congrats-note{
+    margin-top:32px;
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    text-align:center;
+  }
+  .congrats-row{
+    display:flex;
+    gap:28px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:20px;
+  }
+  .congrats-row .guest-photo{margin:0;max-width:240px}
+  .guest-photo img{
+    width:100%;
+    border-radius:16px;
+    border:6px solid #fff;
+    box-shadow:0 14px 36px rgba(0,0,0,.22);
+    display:block;
+  }
+  .guest-photo figcaption{
+    margin-top:10px;
+    font-size:.9rem;
+    color:var(--muted);
+    text-align:center;
+  }
+  .guest-photo b{color:var(--ink)}
+
+  /* ---------- PHOTOS ---------- */
+  .photos-title{
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:clamp(1.5rem,4.5vw,2.4rem);
+    text-align:center;
+    margin-bottom:12px;
+  }
+  .photos-sub{text-align:center;color:var(--muted);margin-bottom:48px}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:clamp(20px,4vw,40px);
+  }
+  figure{position:relative;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+  figure:hover{transform:scale(1.04) rotate(0deg) !important;z-index:2}
+  .grid img{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    border-radius:18px;
+    border:6px solid #fff;
+    box-shadow:0 18px 44px rgba(0,0,0,.25);
+    display:block;
+  }
+  figcaption{
+    margin-top:12px;
+    font-size:.95rem;
+    color:var(--muted);
+    text-align:center;
+  }
+  figcaption b{color:var(--ink)}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding:56px 24px 64px;
+    border-top:1px solid var(--line);
+  }
+  .final{
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:clamp(1.2rem,3.5vw,1.8rem);
+    color:var(--ink);
+  }
+  footer small{display:block;margin-top:12px;color:var(--muted)}
+
+  /* buttons */
+  .party-btn{
+    margin-top:40px;
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    padding:18px 36px;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .party-btn:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+  .party-btn:active{transform:scale(.97)}
+
+  a:focus-visible,button:focus-visible{outline:3px solid #4a4a4a;outline-offset:3px}
+
+  @media (max-width:560px){
+    .grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .cake,.scroll-hint{animation:none}
+    .smoke::before,.smoke::after{animation:none}
+    figure{transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="smoke" aria-hidden="true"></div>
+
+<header>
+  <span class="cake" aria-hidden="true">🎂</span>
+  <h1>
+    <span class="row">Виталик,</span>
+    <span class="row">с днём</span>
+    <span class="row">рожденья!</span>
+  </h1>
+  <p class="tagline">Официальный праздник самого легендарного студента шараги</p>
+  <p class="scroll-hint" aria-hidden="true">↓ листай вниз</p>
+</header>
+
+<main class="wrap">
+  <section class="greeting">
+    <p><span class="loud">Виталик всех нас очень возбуждает!</span></p>
+    <p>И мы очень рады, что он <span class="hot">приходит напалёный в шарагу</span> — это уже традиция и объект культурного наследия группы. Гаврилыч тоже очень рад его дню рождения!</p>
+    <p class="congrats-note">Так же лично Виталика поздравляют:</p>
+    <div class="congrats-row">
+      <figure class="guest-photo">
+        <img src="rodenko.jpg" alt="Радченко со школьной лентой" loading="lazy">
+      </figure>
+      <figure class="guest-photo" style="transform:rotate(2deg)">
+        <img src="dobrynya.jpg" alt="Добрыня в белой форме" loading="lazy">
+      </figure>
+    </div>
+    <button class="party-btn" id="party" type="button">🎉 Жмякни для салюта</button>
+  </section>
+
+  <section id="photos">
+    <h2 class="photos-title">Доказательная база</h2>
+    <p class="photos-sub">секретные архивы группы, рассекреченные к празднику</p>
+    <div class="grid">
+      <figure style="transform:rotate(-2.5deg)">
+        <img src="photo_2026-11-11_12-32-02.jpg" alt="Виталик в форме" loading="lazy">
+        <figcaption><b>Не стесняется высказывать свое мнение.</b></figcaption>
+      </figure>
+      <figure style="transform:rotate(2deg)">
+        <img src="photo_2026-11-11_12-32-11.jpg" alt="Виталик с дрелью" loading="lazy">
+        <figcaption><b>Виталик мастер по бурению отверстий.</b></figcaption>
+      </figure>
+      <figure style="transform:rotate(1.8deg)">
+        <img src="photo_2026-11-11_12-32-17.jpg" alt="Виталик" loading="lazy">
+        <figcaption><b>Стучит мауху по пузу на построение.</b></figcaption>
+      </figure>
+      <figure style="transform:rotate(-2deg)">
+        <img src="photo_2026-11-11_12-32-21.jpg" alt="Виталик" loading="lazy">
+        <figcaption><b>Даже накуреный доедет до шараги.</b></figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="final">С праздником, Виталик! 🥳</p>
+</footer>
+
+<script src="confetti.js"></script>
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const colors = ['#9e9e9e','#cfcfcf','#4a4a4a','#ffffff'];
+
+  function boom(x = 0.5, y = 0.4, count = 160){
+    if (typeof confetti !== 'function' || reduced) return;
+    confetti({ particleCount: count, spread: 75, origin: {x, y}, colors });
+  }
+
+  window.addEventListener('load', () => {
+    boom(0.2, 0.3, 90);
+    setTimeout(() => boom(0.8, 0.3, 90), 250);
+    setTimeout(() => boom(0.5, 0.2, 120), 500);
+  });
+
+  document.getElementById('party').addEventListener('click', (e) => {
+    const r = e.target.getBoundingClientRect();
+    boom((r.left + r.width/2) / innerWidth, (r.top + r.height/2) / innerHeight, 220);
+    setTimeout(() => boom(0.3, 0.5, 100), 200);
+    setTimeout(() => boom(0.7, 0.5, 100), 400);
+  });
+</script>
+
+</body>
+</html>
